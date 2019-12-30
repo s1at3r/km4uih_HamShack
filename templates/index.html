@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <style>
+    table, th, td {
+        border: 1px solid black;
+    }
+    </style>
+  <meta charset="utf-8">
+  <title>KM4UIH Weather Report</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="row" style="background: #337ab7; color: white;">
+    <h1 class="col-md-3 text-center">KM4UIH Weather Report</h1>
+  </nav>
+  <br />
+  <br />
+  <!-- Solar weather from N3KL.org  -->
+  <nav>
+      <table>
+  <tr>
+    <td ALIGN=RIGHT WIDTH=150><STRONG>Solar X-rays: <BR> Geomagnetic Field: </STRONG></td>
+    <td><TABLE BORDER=2 CELLSPACING=3 CELLPADDING=0><TR>
+    <TD ALIGN=CENTER><CENTER><A HREF="http://www.n3kl.org/sun/noaa.html"><IMG WIDTH=121
+    HEIGHT=20 BORDER=1 ALT="Status" SRC="http://www.n3kl.org/sun/images/status.gif?"></A></CENTER></TD>
+    <TR><TD ALIGN=CENTER><CENTER><A HREF="http://www.n3kl.org/sun/noaa.html"><IMG WIDTH=121
+    HEIGHT=20 BORDER=1 ALT="Status" SRC="http://www.n3kl.org/sun/images/kpstatus.gif?"></A</CENTER</TD>
+</TR></TABLE></td> &nbsp;</TR>
+ From <A HREF="http://www.n3kl.org/sun/noaa.html">n3kl.org</A></CENTER>
+  </tr>
+</table>
+  </nav>
+  <!-- Search for city weather data -->
+  <center>
+  <h3>Get the Forcast</h3>
+</center>
+  <center class="row">
+    <form method="post" class="col-md-6 col-md-offset-3">
+      <div class="input-group">
+        <input type="text" class="form-control" name="city" placeholder="Enter a City">
+        <div class="input-group-btn">
+          <button class="btn btn-primary" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+        <form>
+  </center>
+  <!-- Output from city search that references weather_app.py -->
+  <div class="row">
+    {% if data.country_code and data.pressure and data.humidity %}
+    <div class="col-md-6 col-md-offset-3">
+      <h3>Country Code : {{data.country_code}}</h3>
+        <h5>City Name: {{data.name}}<h5>
+        <h5>Latitude : {{data.lat}}</h5>
+        <h5>Longitude : {{data.lon}}</h5>
+        <h5>Temperature Kelvin : {{data.temp_k}}</h5>
+        <h5>Temperature Fahrenheit : {{data.temp_f}}</h5>
+        <h5>Temperature Celsius : {{data.temp_c}}</h5>
+        <h5>Pressure : {{data.pressure}} </h5>
+        <h5>Humidity : {{data.humidity}}</h5>
+    </div>
+    {% endif %}
+  </div>
+  <br>
+  <!-- Search the FCC Callsign Database -->
+  <nav>
+  <h3>Search Callsign Database</h3>
+</nav>
+  <nav>
+      <form class="form-inline" method="post">
+          <div class="form-group">
+              <label for="Callsign">Callsign</label>
+              <input type="text" class="form-control" id="Callsign" placeholder="Enter Callsign">
+          </div>
+          <button type="submit" class="btn btn-default">Search</button>
+      </form>
+  </nav>
+  <div class="row">
+   {% if data.status and data.type and data.operClass %}
+   <div class="col-md-6">
+       <h5>Status : {{data.status}}</h5>
+       <h5>Type : {{data.type}}</h5>
+       <h5>Class : {{data.operClass}}</h5>
+   </div>
+   {% endif %}
+ </div>
+</body>
+
+</html>
