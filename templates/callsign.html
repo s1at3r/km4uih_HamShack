@@ -8,7 +8,7 @@
     }
     </style>
   <meta charset="utf-8">
-  <title>KM4UIH Dashboard</title>
+  <title>KM4UIH Weather Report</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
@@ -43,36 +43,30 @@
   </nav>
   <!-- Search for city weather data -->
   <center>
-  <h3>Get the Forcast</h3>
-</center>
-  <center class="row">
-    <form method="post" class="col-md-6 col-md-offset-3">
-      <div class="input-group">
-        <input type="text" class="form-control" name="city" placeholder="Enter a City">
-        <div class="input-group-btn">
-          <button class="btn btn-primary" type="submit">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
-        </div>
-        <form>
-  </center>
-  <!-- Output from city search that references weather_app.py -->
+
+  <!-- Search the FCC Callsign Database -->
+  <nav>
+  <h3>Search Callsign Database</h3>
+</nav>
+  <nav>
+      <form class="form-inline" method="post">
+          <div class="form-group">
+              <label for="callsign">Callsign</label>
+              <input type="text" class="form-control" id="callsign" name="callsign" placeholder="Enter Callsign">
+          </div>
+          <button type="submit" class="btn btn-default">Search</button>
+      </form>
+  </nav>
   <div class="row">
-    {% if data.country_code and data.pressure and data.humidity %}
-    <div class="col-md-6 col-md-offset-3">
-      <h3>Country Code : {{data.country_code}}</h3>
-        <h5>City Name: {{data.name}}<h5>
-        <h5>Latitude : {{data.lat}}</h5>
-        <h5>Longitude : {{data.lon}}</h5>
-        <h5>Temperature Kelvin : {{data.temp_k}}</h5>
-        <h5>Temperature Fahrenheit : {{data.temp_f}}</h5>
-        <h5>Temperature Celsius : {{data.temp_c}}</h5>
-        <h5>Pressure : {{data.pressure}} </h5>
-        <h5>Humidity : {{data.humidity}}</h5>
-    </div>
-    {% endif %}
-  </div>
-  <br>
+   <div class="col-md-6">
+       <h5>Type : {{data.type}}</h5>
+       <h5>Class : {{data.class}}</h5>
+       <h5>Callsign : {{data.callsign}}</h5>
+       <h5>Name : {{data.name}}</h5>
+       <h5>Address : {{data.address}}</h5>
+       <h5>Location : {{data.location}}</h5>
+       <h5>Other Info : {{data.otherInfo}}</h5>
+   </div>
  </div>
 </body>
 
