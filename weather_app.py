@@ -40,24 +40,38 @@ def weather():
     return render_template("index.html", data=data)
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route("/callsign", methods=["POST", "GET"])
 def callsign_lookup():
     """This function will allow allow for the lookup of amatuer radio callsign information"""
     if request.method == "POST":
         callsign = request.form["callsign"]
+        callsign_data = requests.get(
+            "https://callook.info/" + callsign + "/json"
+        ).json()
+        data = {
+            "type": str(callsign_data["type"]),
+            "class": str(callsign_data["current"]["operClass"]),
+            "callsign": str(callsign_data["current"]["callsign"]),
+            "name": str(callsign_data["name"]),
+            "address": f'{callsign_data["address"]["line1"]}, {callsign_data["address"]["line2"]}',
+            "location": f'Latitude: {callsign_data["location"]["latitude"]} Longitude: {callsign_data["location"]["longitude"]} Gridsquare: {callsign_data["location"]["gridsquare"]}',
+            "otherInfo": f'FRN: {callsign_data["otherInfo"]["frn"]} Grant Date: {callsign_data["otherInfo"]["grantDate"]} Experation Date: {callsign_data["otherInfo"]["expiryDate"]}',
+        }
     else:
-        callsign = print("Enter a Valid Callsign.")
+        callsign = "Enter a Valid Callsign."
 
-    callsign_data = requests.get("https://callook.info/" + callsign).json()
-
-    data = {
-        "Status": str(callsign_data["status"]),
-        "Type": str(callsign_data["type"]),
-        "Class": str(callsign_data["operClass"]),
-    }
+        data = {
+            "type": str(" "),
+            "class": str(" "),
+            "callsign": str(" "),
+            "name": str(" "),
+            "address": str(" "),
+            "location": str(" "),
+            "otherInfo": str(" "),
+        }
 
     print(data)
-    return render_template("index.html", data=data)
+    return render_template("callsign.html", data=data)
 
 
 if __name__ == "__main__":
